@@ -7,7 +7,9 @@
 
 public class Kata {
     public static String createPhoneNumber(int[] numbers) {
-        // Your code here!
+        if (numbers.length != 10) {
+            return "input wrong size";
+        }
         return null;
     }
 }
