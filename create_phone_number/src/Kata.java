@@ -5,11 +5,21 @@
 //The returned format must be correct in order to complete this challenge.
 //Don't forget the space after the closing parentheses!
 
+import java.util.Arrays;
+
 public class Kata {
     public static String createPhoneNumber(int[] numbers) {
         if (numbers.length != 10) {
             return "input wrong size";
         }
-        return null;
+
+        String[] s = Arrays.stream(numbers)
+                .mapToObj(String::valueOf)
+                .toArray(String[]::new);
+        String phone = String.join("", s);
+
+        return "(" + phone.substring(0, 3)
+                + ") " + phone.substring(3, 6)
+                + "-" + phone.substring(6, s.length);
     }
 }
