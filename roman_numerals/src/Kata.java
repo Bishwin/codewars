@@ -16,11 +16,7 @@ public class Kata {
             int num = stack.pop() * base;
 
             if (num != 0) {
-                System.out.println("i " + num);
                 while (num > 0) {
-                    if (num < 100) {
-                        System.out.println("num " + num);
-                    }
 
                     if (num >= 1000) {
                         sb.append("M");
@@ -73,6 +69,7 @@ public class Kata {
                 }
             }
         }
+
         return sb.toString();
     }
 
