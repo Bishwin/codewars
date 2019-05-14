@@ -15,62 +15,79 @@ public class Kata {
             int base = (int) Math.pow(10, size);
             int num = stack.pop() * base;
 
-            if (num != 0) {
-                while (num > 0) {
-
-                    if (num >= 1000) {
-                        sb.append("M");
-                        num = num - 1000;
-                    } else if (num < 10) {
-                        if (num - 9 >= 0) {
-                            sb.append("IX");
-                            num = num - 9;
-                        } else if (num - 5 >= 0) {
-                            sb.append("V");
-                            num = num - 5;
-                        } else if (num - 4 >= 0) {
-                            sb.append("IV");
-                            num = num - 4;
-                        } else {
-                            sb.append("I");
-                            num = num - 1;
-                        }
-                    } else if (num < 100) {
-                        if (num - 90 >= 0) {
-                            sb.append("XC");
-                            num = num - 90;
-                        } else if (num - 50 >= 0) {
-                            sb.append("L");
-                            num = num - 50;
-                        } else if (num - 40 >= 0) {
-                            sb.append("XL");
-                            num = num - 40;
-                        } else if (num % 10 == 0) {
-                            sb.append("X");
-                            num = num - 10;
-                        }
-                    } else if (num < 500) {
-                        if (num - 400 >= 0) {
-                            sb.append("CD");
-                            num = num - 400;
-                        } else {
-                            sb.append("C");
-                            num = num - 100;
-                        }
-                    } else {
-                        if (num - 900 >= 0) {
-                            sb.append("CM");
-                            num = num - 900;
-                        } else {
-                            sb.append("D");
-                            num = num - 500;
-                        }
-                    }
-                }
+            switch (base) {
+                case 1000:
+                case 100:
+                case 10:
+                case 1:
+                    sb.append(convert(num, base));
+                    break;
             }
         }
-
+        System.out.println(number+" = " +sb.toString());
         return sb.toString();
+    }
+
+    private static String convert(int num, int base) {
+        StringBuilder sb1 = new StringBuilder();
+        while (num > 0) {
+            if (num - (9*base) >= 0) {
+                sb1.append(getNines(num));
+                num = num - (9*base);
+            } else if (num - (5*base) >= 0) {
+                sb1.append(getFives(num));
+                num = num - (5*base);
+            } else if (num - (4*base) >= 0) {
+                sb1.append(getFours(num));
+                num = num - (4*base);
+            } else {
+                sb1.append(getTens(num));
+                num = num - base;
+            }
+        }
+        return sb1.toString();
+    }
+
+    private static String getNines(int num) {
+        if(num - 900 >= 0){
+            return "CM";
+        } else if(num - 90 >= 0){
+            return "XC";
+        } else {
+            return "IX";
+        }
+    }
+
+    private static String getFives(int num) {
+        if(num - 500 >= 0){
+            return "D";
+        } else if(num - 50 >= 0){
+            return "L";
+        } else {
+            return "V";
+        }
+    }
+
+    private static String getFours(int num) {
+        if(num - 400 >= 0){
+            return "CD";
+        } else if(num - 40 >= 0){
+            return "XL";
+        } else {
+            return "IV";
+        }
+    }
+
+    private static String getTens(int num) {
+        if(num - 1000 >= 0){
+            return "M";
+        }else if(num - 100 >= 0){
+            return "C";
+        } else if(num - 10 >= 0){
+            return "X";
+        } else {
+            return "I";
+        }
     }
 
     private static Stack<Integer> toDigits(int number) {

@@ -6,6 +6,11 @@ public class KataTest {
 
     @Test
     public void test () {
+        assertEquals("MMXIX", Kata.toRomanNumeral(2019));
+    }
+
+    @Test
+    public void test0 () {
         assertEquals("CMXCIX", Kata.toRomanNumeral(999));
     }
 
