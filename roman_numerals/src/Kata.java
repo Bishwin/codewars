@@ -7,18 +7,8 @@ public class Kata {
             return "enter value between 1-3000";
         }
 
-        if (number % 5 == 0) {
-            System.out.println("divise by 5 - " + number);
-        }
-
         StringBuilder sb = new StringBuilder();
-        Stack<Integer> stack = new Stack<>();
-        int n = number;
-        while (n > 0) {
-            int digit = n % 10;
-            stack.push(digit);
-            n = n / 10;
-        }
+        Stack<Integer> stack = toDigits(number);
 
         while (stack.size() > 0) {
             int size = stack.size() - 1;
@@ -84,6 +74,16 @@ public class Kata {
             }
         }
         return sb.toString();
+    }
+
+    private static Stack<Integer> toDigits(int number) {
+        Stack<Integer> stack = new Stack<>();
+        while (number > 0) {
+            int digit = number % 10;
+            stack.push(digit);
+            number = number / 10;
+        }
+        return stack;
     }
 }
 
