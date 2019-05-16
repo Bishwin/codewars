@@ -22,9 +22,63 @@
 // 1 1 1 3 1   1000 + 100 = 1100
 // 2 4 4 5 4   400 + 50 = 450
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class Kata {
 
-    static int greedy(int[] dice){
-        return 0;
+    static int greedy(int[] dice) {
+        Map<Integer, Long> scoreboard = Arrays
+                .stream(dice)
+                .boxed()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return scoreboard.entrySet()
+                .stream()
+                .mapToInt(value -> getScore(value.getKey(), value.getValue()))
+                .sum();
+    }
+
+    private static int getScore(int number, Long occurrences) {
+        int total = 0;
+        while (occurrences > 0) {
+            if ((occurrences - 3) >= 0) {
+                occurrences = occurrences - 3;
+                switch (number) {
+                    case 1:
+                        total = total + 1000;
+                        break;
+                    case 2:
+                        total = total + 200;
+                        break;
+                    case 3:
+                        total = total + 300;
+                        break;
+                    case 4:
+                        total = total + 400;
+                        break;
+                    case 5:
+                        total = total + 500;
+                        break;
+                    case 6:
+                        total = total + 600;
+                        break;
+                }
+            }
+            else {
+                occurrences = occurrences - 1;
+                switch (number) {
+                    case 1:
+                        total = total + 100;
+                        break;
+                    case 5:
+                        total = total + 50;
+                        break;
+                }
+            }
+        }
+        return total;
     }
 }
