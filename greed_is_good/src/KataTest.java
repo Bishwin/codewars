@@ -35,7 +35,7 @@ public class KataTest {
 
     @Test
     public void threeTwosShouldReturn200() {
-        assertEquals(200, Kata.greedy(new int[]{2,2,2,1,1}));
+        assertEquals(200, Kata.greedy(new int[]{2,2,2,3,4}));
     }
 
     @Test
